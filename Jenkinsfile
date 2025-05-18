@@ -1,0 +1,41 @@
+pipeline {
+    agent any
+
+    environment {
+        IMAGE_NAME = "ci-cd-demo"
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git 'https://github.com/your-username/ci-cd-demo.git'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                sh 'mvn clean install'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                sh 'mvn test'
+            }
+        }
+
+        stage('Docker Build') {
+            steps {
+                script {
+                    docker.build("${IMAGE_NAME}")
+                }
+            }
+        }
+
+        stage('Notify') {
+            steps {
+                echo 'You can add Slack/email notification here.'
+            }
+        }
+    }
+}
