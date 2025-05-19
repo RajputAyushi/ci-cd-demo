@@ -32,7 +32,16 @@ pipeline {
                 }
             }
         }
+ stage('Docker Push') {
+            steps {
+                script {
+                    docker.withRegistry('', 'docker-hub-creds') {
+                        docker.image("${IMAGE_NAME}").push()
+                    }
+                }
+            }
 
+        }
         stage('Notify') {
             steps {
                 echo 'You can add Slack/email notification here.'
