@@ -8,7 +8,8 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/your-username/ci-cd-demo.git'
+
+                git 'https://github.com/RajputAyushi/ci-cd-demo.git'
             }
         }
 
